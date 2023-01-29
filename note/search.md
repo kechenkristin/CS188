@@ -28,15 +28,18 @@ https://inst.eecs.berkeley.edu/~cs188/fa22/assets/lectures/cs188-fa22-lec01.pdf
 ![avatar](https://github.com/kechenkristin/cs188/blob/main/img/l1/dfs2.png)
 
 - stack  
-https://algs4.cs.princeton.edu/41graph/DepthFirstSearch.java.html
+https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/NonrecursiveDFS.java.html
 
 ### BFS
 ![avatar](https://github.com/kechenkristin/cs188/blob/main/img/l1/bfs.png)
 
-### Dijskra
+### Dijskra( Uniform Cost Search)
 ![avatar](https://github.com/kechenkristin/cs188/blob/main/img/l1/dijskra.png)
 
 https://algs4.cs.princeton.edu/44sp/DijkstraSP.java.html
+
+### A star
+https://www.redblobgames.com/pathfinding/a-star/introduction.html
 
 
 

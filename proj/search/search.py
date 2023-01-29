@@ -87,8 +87,6 @@ def depthFirstSearch(problem: SearchProblem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
-    marked = {}
-    stack = Stack()
 
 
 def breadthFirstSearch(problem: SearchProblem):
