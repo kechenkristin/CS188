@@ -87,17 +87,64 @@ def depthFirstSearch(problem: SearchProblem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
+    frontier = util.Stack()
+    reached = set()
+
+    frontier.push((problem.getStartState(), []))
+
+    while not frontier.isEmpty():
+        current, path = frontier.pop()
+
+        if problem.isGoalState(current):
+            return path
+
+        if current not in reached:
+            reached.add(current)
+            for nextTuple in problem.getSuccessors(current):
+                frontier.push((nextTuple[0], path + [nextTuple[1]]))
+    return []
 
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    frontier = util.Queue()
+    reached = set()
+
+    frontier.push((problem.getStartState(), []))
+
+    while not frontier.isEmpty():
+        current, path = frontier.pop()
+
+        if problem.isGoalState(current):
+            return path
+
+        if current not in reached:
+            reached.add(current)
+            for nextTuple in problem.getSuccessors(current):
+                frontier.push((nextTuple[0], path + [nextTuple[1]]))
+    return []
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    frontier = util.PriorityQueue()
+    reached = set()
+
+    frontier.push((problem.getStartState, []), 999)
+
+    while not frontier.isEmpty():
+        current, path = frontier.pop()
+
+        if problem.isGoalState(current):
+            return path
+
+        if current not in reached:
+            reached.add(current)
+            for nextTuple in problem.getSuccessors(current):
+                frontier.push((nextTuple[0], path + [nextTuple[1]]), nextTuple[2])
+
+    return []
 
 def nullHeuristic(state, problem=None):
     """
