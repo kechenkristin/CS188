@@ -131,18 +131,27 @@ def uniformCostSearch(problem: SearchProblem):
     frontier = util.PriorityQueue()
     reached = set()
 
-    frontier.push((problem.getStartState, []), 999)
+    # (tuple(state, path, cost_so_far), protity)
+    frontier.push((problem.getStartState(), [], 0), 0)
 
     while not frontier.isEmpty():
-        current, path = frontier.pop()
+        current, path, costSoFar = frontier.pop()
 
         if problem.isGoalState(current):
             return path
 
         if current not in reached:
             reached.add(current)
+            # nextTuple(successor, action, stepCost)
+            # successor -> nextTuple[0]
+            # action -> nextTuple[1]
+            # stepCost -> nextTuple[2]
             for nextTuple in problem.getSuccessors(current):
-                frontier.push((nextTuple[0], path + [nextTuple[1]]), nextTuple[2])
+                # frontier.push((nextNode, newPath, newCost), priority(of new node))
+                # newPath = path + [nextTuple[1]]
+                # newCost = stepCost + costSoFar
+                # priority(newNode) = stepCost + costSoFar
+                frontier.push((nextTuple[0], path + [nextTuple[1]], nextTuple[2] + costSoFar), costSoFar + nextTuple[2])
 
     return []
 
@@ -156,7 +165,27 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    frontier = util.PriorityQueue()
+    reached = set()
+
+    frontier.push((problem.getStartState(), [], 0), 0)
+
+    while not frontier.isEmpty():
+        current, path, costSoFar = frontier.pop()
+
+        if problem.isGoalState(current):
+            return path
+
+        if current not in reached:
+            reached.add(current)
+            for nextTuple in problem.getSuccessors(current):
+                # frontier.push((nextNode, newPath, newCost), priority)
+                # newCost = costSoFar + stepCost
+                # priority = newCost + h(x)
+                newCost = costSoFar + nextTuple[2]
+                frontier.push((nextTuple[0], path + [nextTuple[1]], newCost), newCost + heuristic(nextTuple[0], problem))
+
+    return []
 
 
 # Abbreviations
