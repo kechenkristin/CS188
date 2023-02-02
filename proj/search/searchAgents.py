@@ -269,6 +269,16 @@ def euclideanHeuristic(position, problem, info={}):
 #####################################################
 # This portion is incomplete.  Time to write code!  #
 #####################################################
+"""
+define an abstract state representation that does not encode irrelevant information (like the position of ghosts, where extra food is, etc.)
+"""
+
+class CornerState:
+    def __init__(self, pacmanPosition, visit = [False, False,False,False]):
+        self.pacmanPosition = pacmanPosition
+        # self.visited = [i for i in visited]
+        self.visited = visit
+
 
 class CornersProblem(search.SearchProblem):
     """
@@ -292,6 +302,7 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
+        self.startState = CornerState(self.startingPosition)
 
     def getStartState(self):
         """
@@ -299,14 +310,17 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.startState
 
     def isGoalState(self, state: Any):
         """
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        for i in range(len(self.corners)):
+            if self.corners[i] == state.pacmanPosition:
+                state.visited[i] = True
+        return False not in state.visited
 
     def getSuccessors(self, state: Any):
         """
@@ -319,6 +333,14 @@ class CornersProblem(search.SearchProblem):
             is the incremental cost of expanding to that successor
         """
 
+        """
+        update four corners
+        """
+
+        for i in range(len(self.corners)):
+            if self.corners[i] == state.pacmanPosition:
+                state.visited[i] = True
+
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
@@ -329,6 +351,25 @@ class CornersProblem(search.SearchProblem):
             #   hitsWall = self.walls[nextx][nexty]
 
             "*** YOUR CODE HERE ***"
+            x,y = state.pacmanPosition
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            hitsWall = self.walls[nextx][nexty]
+            if not hitsWall:
+                """
+                nextPosition = (nextx, nexty)
+                nextState = CornerState(nextPosition, nextVisited)
+                successors.append( ( nextState, action, 1) )
+                """
+                               
+                successors.append((CornerState((nextx, nexty), state.visited), action, 1))
+                """
+                nextPosition = (nextx, nexty)
+                nextVisited = state.visited
+                nextState = CornerState(nextPosition, nextVisited)
+                successors.append((nextState, action, 1))
+                """
+
 
         self._expanded += 1 # DO NOT CHANGE
         return successors

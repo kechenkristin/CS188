@@ -142,16 +142,17 @@ def uniformCostSearch(problem: SearchProblem):
 
         if current not in reached:
             reached.add(current)
-            # nextTuple(successor, action, stepCost)
-            # successor -> nextTuple[0]
-            # action -> nextTuple[1]
-            # stepCost -> nextTuple[2]
             for nextTuple in problem.getSuccessors(current):
+                # nextTuple(successor, action, stepCost)
+                successor = nextTuple[0]
+                action = nextTuple[1]
+                stepCost = nextTuple[2]
+                newCost = stepCost + costSoFar
                 # frontier.push((nextNode, newPath, newCost), priority(of new node))
                 # newPath = path + [nextTuple[1]]
                 # newCost = stepCost + costSoFar
                 # priority(newNode) = stepCost + costSoFar
-                frontier.push((nextTuple[0], path + [nextTuple[1]], nextTuple[2] + costSoFar), costSoFar + nextTuple[2])
+                frontier.push((nextTuple[0], path + [action], newCost), newCost)
 
     return []
 
@@ -181,6 +182,8 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
             for nextTuple in problem.getSuccessors(current):
                 # frontier.push((nextNode, newPath, newCost), priority)
                 # newCost = costSoFar + stepCost
+                # F(x) = g(x) + h(x)
+                # g(x) : backword cost = newCost = costSoFar + stepCost
                 # priority = newCost + h(x)
                 newCost = costSoFar + nextTuple[2]
                 frontier.push((nextTuple[0], path + [nextTuple[1]], newCost), newCost + heuristic(nextTuple[0], problem))
