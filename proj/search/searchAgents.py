@@ -274,10 +274,9 @@ define an abstract state representation that does not encode irrelevant informat
 """
 
 class CornerState:
-    def __init__(self, pacmanPosition, visit = [False, False,False,False]):
+    def __init__(self, pacmanPosition, visited = [False, False,False,False]):
         self.pacmanPosition = pacmanPosition
-        # self.visited = [i for i in visited]
-        self.visited = visit
+        self.visited = [i for i in visited]
 
 
 class CornersProblem(search.SearchProblem):
@@ -337,9 +336,12 @@ class CornersProblem(search.SearchProblem):
         update four corners
         """
 
+
+        """
         for i in range(len(self.corners)):
             if self.corners[i] == state.pacmanPosition:
                 state.visited[i] = True
+                """
 
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
