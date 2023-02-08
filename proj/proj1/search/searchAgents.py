@@ -340,11 +340,13 @@ class CornersProblem(search.SearchProblem):
             #   nextx, nexty = int(x + dx), int(y + dy)
             #   hitsWall = self.walls[nextx][nexty]
 
-            "*** YOUR CODE HERE ***"
+python autograder.py -q q5            "*** YOUR CODE HERE ***"
             x,y = state[0]
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
+
+            """
             if not hitsWall:
                 nextPosition = (nextx, nexty)
                 nextUnvisitedCorner = []
@@ -353,6 +355,17 @@ class CornersProblem(search.SearchProblem):
                         nextUnvisitedCorner.append(i)
 
                 nextState = (nextPosition, tuple(nextUnvisitedCorner))
+                successors.append((nextState, action, 1))
+            """
+
+            if not hitsWall:
+                nextPosition = (nextx, nexty)
+                cornerLst = list(state[1])
+                for i in cornerLst:
+                    if nextPosition == i:
+                        cornerLst.remove(i)
+
+                nextState = (nextPosition, tuple(cornerLst))
                 successors.append((nextState, action, 1))
 
 
