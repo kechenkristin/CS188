@@ -3,19 +3,19 @@ conda activate cs188
 conda deactivate
 ```
 
-### Q1-Q4
+## Q1-Q4
 Searching algorithms, easy, but still have possibilities to optimize: using a generic function, passing data structure and functions as parameters to it.  
 
 https://github.com/kechenkristin/CS188/blob/main/note/search.md  
 
-### Q5
+## Q5
 - pre knowledge(composition of search problem)  
 ![avatar](https://github.com/kechenkristin/cs188/blob/main/img/p1/s1.png)
 
 
 ![avatar](https://github.com/kechenkristin/cs188/blob/main/img/p1/s2.png)
 
-- idea
+- idea  
 Define a data structure to represent searching corner problem, because it's about the corners, so have nothing to do other irrelevant info(i.e. the position of ghosts, where extra food is).  
 
 The data structure we defined should contain: the current position of pacman, info about the corners.  
@@ -61,9 +61,11 @@ class CornersProblem(search.SearchProblem):
         self.startState = (self.startingPosition, self.corners)
 ```
 
-- getStartState(easy, simply return self.startState)
+- getStartState  
+easy, simply return self.startState
 
 - isGoalState  
+
 Since self.startState[1] records the corners we haven't visited yet, so when we reach the goal, that means we have vivisted all the corners, so startState[1] should be empty, now we can define:
 
 ```python
@@ -76,8 +78,12 @@ Since self.startState[1] records the corners we haven't visited yet, so when we 
 ```
 
 - getSuccessors  
-This method should return a new state, so we need to (1)update the newPosition, (2)update the info of visited corners.  
+This method should return a new state, so we need to   
+(1)update the newPosition   
+(2)update the info of visited corners.    
+
 We now have the next position, so just need to think about(2), if the nextPosition equals to one of the corners we haven't visited yet, remove it.  
+
 ```python
 def getSuccessors(self, state: Any):
         successors = []
@@ -118,7 +124,7 @@ There are also other ways:
 
 For 2. Using a list of bool to record whether we have visited a corner or not, it's bascically the similar idea, I won't discuss it in detail.  
 
-### q6
+## Q6
 ![avatar](https://github.com/kechenkristin/cs188/blob/main/img/p1/a1.png)
 This task asks us to implement a heuristic funtion for corner problem, ucb's question is really useful:  
 
@@ -148,7 +154,7 @@ def cornersHeuristic(state: Any, problem: CornersProblem):
     return distance # Default to trivial solution
 ```
 
-### Q7
+## Q7
 ![avatar](https://github.com/kechenkristin/cs188/blob/main/img/p1/c1.png)
 This task also asks us to implement a heristic funtion, but should satisfy consistancy, 
 my implementation is:
@@ -191,7 +197,7 @@ def foodHeuristic(state: Tuple[Tuple, List[List]], problem: FoodSearchProblem):
 ```
 Admissible, but not consistancy, still need to improve in the future
 
-### q8
+## Q8
 easy  
 ```python
     def findPathToClosestDot(self, gameState: pacman.GameState):
