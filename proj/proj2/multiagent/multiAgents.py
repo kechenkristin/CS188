@@ -87,9 +87,12 @@ class ReflexAgent(Agent):
         # foodVal
         foods = newFood.asList()
         foodVal = min([manhattanDistance(newPos, i) for i in foods])
-        # GhostStateVal
 
-        return successorGameState.getScore()
+        # GhostStateVal
+        scaredVal = sum(newScaredTimes)
+
+        return scaredVal + foodVal
+
 
 def scoreEvaluationFunction(currentGameState: GameState):
     """
