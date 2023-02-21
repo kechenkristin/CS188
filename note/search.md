@@ -41,6 +41,8 @@ https://algs4.cs.princeton.edu/44sp/DijkstraSP.java.html
 ### A star
 https://www.redblobgames.com/pathfinding/a-star/introduction.html
 
+http://qiao.github.io/PathFinding.js/visual/
+
 
 
 
